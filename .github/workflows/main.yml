@@ -1,0 +1,11 @@
+name: Manual SSH Debug Only
+
+on:
+  workflow_dispatch: # Actions画面から手動で実行します
+
+jobs:
+  ssh-only:
+    runs-on: macos-latest
+    steps:
+      - name: Start SSH Session
+        uses: mxschmitt/action-tmate@v3
