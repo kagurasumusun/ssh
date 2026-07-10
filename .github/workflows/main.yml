@@ -5,7 +5,7 @@ on:
 
 jobs:
   ssh-only:
-    runs-on: macos-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Start SSH Session
         uses: mxschmitt/action-tmate@v3
