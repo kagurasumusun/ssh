@@ -3,8 +3,6 @@ name: Manual SSH Debug Only
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
 
 jobs:
   ssh-only:
@@ -17,21 +15,6 @@ jobs:
         with:
           persist-credentials: true
           fetch-depth: 0
-
-      - name: Install dependencies
-        run: |
-         sudo apt-get update
-         sudo apt-get install -y \
-         clang \
-         git \
-         curl \
-         libcurl4-openssl-dev \
-         libicu-dev \
-         libsqlite3-dev \
-         libxml2-dev \
-         zlib1g-dev \
-         pkg-config
-         
 
       - name: Start SSH Session
         uses: owenthereal/action-upterm@v1
