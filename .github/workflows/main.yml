@@ -3,10 +3,6 @@ name: Manual SSH Debug Only
 on:
   workflow_dispatch:
 
-env:
-  CARGO_TERM_COLOR: always
-  CARGO_INCREMENTAL: '0'
-
 permissions:
   contents: write
 
@@ -14,12 +10,6 @@ jobs:
   ssh-only:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
-        with:
-          cache-on-failure: false
 
     steps:
       - name: Checkout repository
