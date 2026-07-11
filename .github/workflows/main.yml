@@ -1,11 +1,53 @@
 name: Manual SSH Debug Only
 
 on:
-  workflow_dispatch: # Actions画面から手動で実行します
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: '0'
+
+permissions:
+  contents: write
 
 jobs:
   ssh-only:
     runs-on: ubuntu-24.04
+    timeout-minutes: 360
     steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+         sudo apt-get update
+         sudo apt-get install -y \
+         clang \
+         git \
+         curl \
+         libcurl4-openssl-dev \
+         libicu-dev \
+         libsqlite3-dev \
+         libxml2-dev \
+         zlib1g-dev \
+         pkg-config
+         
+
       - name: Start SSH Session
-        uses: mxschmitt/action-tmate@v3
+        uses: owenthereal/action-upterm@v1
+        with:
+          wait-timeout-minutes: 360
+          upterm-version: v0.22.0
+
+      
+
